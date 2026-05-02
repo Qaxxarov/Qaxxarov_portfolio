@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qaxxarov Portfolio - AI Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f2b47;
+            --primary-dark: #0a1f33;
+            --secondary: #F4A300;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.7rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* HERO */
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #0f2b47 0%, #1a3a52 50%, #0f2b47 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .hero .btn-primary, .hero .btn-secondary {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* PORTFOLIO */
+        .portfolio {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: linear-gradient(135deg, #0f2b47 0%, #F4A300 100%);
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-card:hover .play-button {
+            opacity: 1;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .video-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--bg-light);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--bg-light);
+            padding-top: 1rem;
+        }
+
+        /* SERVICES */
+        .services {
+            background: var(--bg-light);
+            padding: 4rem 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .service-desc {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            min-height: 60px;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-stat {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            text-align: center;
+        }
+
+        .about-stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-light);
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1.5rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text);
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* CONTACT */
+        .contact {
+            background: #F4A300;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 600;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: black;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--bg-light);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* ADMIN PANEL */
+        .admin-panel {
+            position: fixed;
+            right: 0;
+            top: 60px;
+            width: 400px;
+            height: calc(100vh - 60px);
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 999;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .admin-panel.active {
+            transform: translateX(0);
+        }
+
+        .admin-panel h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .admin-panel h3:first-child {
+            margin-top: 0;
+        }
+
+        .admin-stat-item {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+        }
+
+        .admin-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 2px solid var(--bg-light);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .admin-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 998;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-panel {
+                width: 100%;
+                height: auto;
+                position: relative;
+                transform: none;
+                box-shadow: none;
+                border-top: 2px solid var(--primary);
+            }
+
+            .admin-toggle {
+                display: none;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .order-item {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .order-title {
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .order-detail {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">🎬 Qaxxarov Portfolio</div>
+        <ul>
+            <li><a onclick="scrollTo('portfolio')">Portfolio</a></li>
+            <li><a onclick="scrollTo('xizmatlar')">Xizmatlar</a></li>
+            <li><a onclick="scrollTo('men-haqida')">Men Haqida</a></li>
+            <li><a onclick="scrollTo('faq')">FAQ</a></li>
+            <li><a onclick="scrollTo('aloqa')">Aloqa</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+        </div>
+    </nav>
+
+    <!-- ADMIN TOGGLE BUTTON -->
+    <button class="admin-toggle" onclick="toggleAdmin()">⚙️</button>
+
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
+        <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Admin Panel</h2>
+        
+        <h3>📊 Statistika</h3>
+        <div class="admin-stat-item">
+            <div class="admin-stat-label">Barcha Ko'rishlar</div>
+            <div class="admin-stat-value" id="statViews">0</div>
+        </div>
+        <div class="admin-stat-item">
+            <div class="admin-stat-label">Buyurtmalar</div>
+            <div class="admin-stat-value" id="statOrders">0</div>
+        </div>
+        <div class="admin-stat-item">
+            <div class="admin-stat-label">Mijozlar</div>
+            <div class="admin-stat-value" id="statCustomers">0</div>
+        </div>
+        <div class="admin-stat-item">
+            <div class="admin-stat-label">Mijozlarga Yoqqan Ishlar %</div>
+            <input type="number" id="satisfactionInput" min="0" max="100" value="98" class="admin-input" onchange="updateStats()">
+        </div>
+
+        <h3>🎬 Video Qo'shish</h3>
+        <input type="text" id="videoTitle" placeholder="Video Nomi" class="admin-input">
+        <input type="text" id="videoDesc" placeholder="Tavsif" class="admin-input">
+        <input type="text" id="videoLink" placeholder="YouTube/Vimeo Link" class="admin-input">
+        <input type="text" id="videoTags" placeholder="Tag'lar (#AI #Video)" class="admin-input">
+        <select id="videoCategory" class="admin-input">
+            <option>-- Kategoriya --</option>
+            <option>AI Video</option>
+            <option>Reklama Videosi</option>
+            <option>Intro & Outro</option>
+            <option>Foto Tayyorlash</option>
+            <option>Video Tahrirlash</option>
+            <option>Dizayn & Motion</option>
+        </select>
+        <button class="admin-btn" onclick="addVideo()">✅ Video Qo'shish</button>
+
+        <h3>📋 Kelib Turgan Zakazlar</h3>
+        <div id="ordersContainer" style="max-height: 300px; overflow-y: auto;">
+            <p style="color: var(--text-light);">Zakazlar shunga keladi...</p>
+        </div>
+
+        <h3>👥 Mijozlar Bazasi</h3>
+        <div id="customersContainer" style="max-height: 300px; overflow-y: auto;">
+            <p style="color: var(--text-light);">Mijozlar shunga saqlash...</p>
+        </div>
+
+        <h3>⚡ Boshqa Moslamalar</h3>
+        <button class="admin-btn" onclick="clearAllData()">🗑️ Barcha Datani O'chirish</button>
+        <button class="admin-btn" onclick="exportData()">💾 Datani Yuklab Olish</button>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>AI Video & Foto Creator</h1>
+        <p>Tursunmurod Qaxxarov - Zamonaviy AI texnologiyalari bilan professional kontent yaratuvchi</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="scrollTo('portfolio')">Ishlarni Ko'ring</button>
+            <button class="btn-secondary" onclick="openContact()">Buyurtma Qilish</button>
+        </div>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-number" id="heroViews">0</div>
+                <div class="stat-label">Ko'rishlar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="heroOrders">0</div>
+                <div class="stat-label">Buyurtmalar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="heroCustomers">0</div>
+                <div class="stat-label">Ijobiy Fikrlar</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Mening Ishlarim</h2>
+        
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterVideos('all')">Hammasi</button>
+            <button class="filter-btn" onclick="filterVideos('AI Video')">AI Video</button>
+            <button class="filter-btn" onclick="filterVideos('Reklama Videosi')">Reklama</button>
+            <button class="filter-btn" onclick="filterVideos('Intro & Outro')">Intro</button>
+            <button class="filter-btn" onclick="filterVideos('Foto Tayyorlash')">Foto</button>
+            <button class="filter-btn" onclick="filterVideos('Video Tahrirlash')">Tahrirlash</button>
+            <button class="filter-btn" onclick="filterVideos('Dizayn & Motion')">Dizayn</button>
+        </div>
+
+        <div class="videos-grid" id="videosGrid">
+            <!-- Videos will be loaded here -->
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="xizmatlar">
+        <h2 class="section-title">Xizmatlarim</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <div class="service-title">AI Avatar Video</div>
+                <div class="service-desc">Synthesia, D-ID va boshqa AI avatar texnologiyalari bilan professional videolar</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📺</div>
+                <div class="service-title">Reklama Videosi</div>
+                <div class="service-desc">30-60 soniyali professional brand reklama videolari</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <div class="service-title">Intro & Outro</div>
+                <div class="service-desc">YouTube va ijtimoiy mediacha uchun professional intro va outro</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <div class="service-title">Foto Tayyorlash</div>
+                <div class="service-desc">AI yordamida rasmlarni improve, background, raskrashni tahrirlash</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">✂️</div>
+                <div class="service-title">Video Tahrirlash</div>
+                <div class="service-desc">Professional tahrirlash, color grading, effects, subtitles</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <div class="service-title">Dizayn & Motion</div>
+                <div class="service-desc">Social media uchun dinamik grafika va animatsion dizayn</div>
+                <div class="service-price">Narx Bilan</div>
+                <button class="btn-primary" onclick="openContact()">Buyurtma Qilish</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="men-haqida">
+        <h2 class="section-title">Men Haqida</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://lh3.googleusercontent.com/d/1uyleSrLPCjPe5p4Eq9JJgS0A6bbWxsE4=s200" alt="Tursunmurod Qaxxarov">
+            </div>
+            <div>
+                <h2>Tursunmurod Qaxxarov</h2>
+                <p>Salom! Men Tursunmurod Qaxxarov, 5+ yillik tajribaga ega grafik dizayner va AI kontent yaratuvchiman. Mening asosiy maqsadim — brendlarni kuchli vizual kontent orqali ajratib ko'rsatish va ularni keng auditoriyaga professional tarzda tanitish.</p>
+                
+                <p>Faoliyatim davomida turli xil biznes egalari va kompaniyalar bilan ishlab, ularning g'oyalarini kreativ va samarali foto hamda video yechimlarga aylantirdim. Har bir loyiha mijozning xohishi va ehtiyojidan kelib chiqib, individual yondashuv asosida yaratiladi.</p>
+                
+                <p>Men zamonaviy sun'iy intellekt (AI) texnologiyalaridan foydalanib, tez, sifatli va trendga mos kontent ishlab chiqaman. Mening ustunligim — kreativ fikrlash, AI bilan ishlashdagi tajriba va eng muhimi, natijaga yo'naltirilgan yondashuvdir.</p>
+
+                <p>Men uchun dizayn — bu shunchaki chiroyli ko'rinish emas, balki brendni rivojlantiradigan va real ta'sir ko'rsatadigan vosita.</p>
+
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="about-stat-number" id="aboutExp">5+</div>
+                        <div class="about-stat-label">Yillik Tajriba</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number" id="aboutProjects">500+</div>
+                        <div class="about-stat-label">Tayyorlangan Loyihalar</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number" id="aboutClients">90+</div>
+                        <div class="about-stat-label">Mijozlar</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number" id="aboutSatisfaction">98%</div>
+                        <div class="about-stat-label">Mijozlarga Yoqqan Ishlar</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: var(--primary);">Qo'llanilgan Texnologiyalar:</h3>
+                <p style="color: var(--text-light);">
+                    ✅ Photoshop, Illustrator, CapCut, Midjourney, Nano Banana, Veo, Kling, Runway, va boshqalar
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+        <h2 class="section-title">Tez-Tez So'ralgan Savollar</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>🎬 Loyihangizning vaqti qancha?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Loyiha turining murakkabligiga qarab 1-5 kun vaqt oladi. Sodda videolar 1-2 kunni, murakkab proyektlar 3-5 kunni oladi. Shoshqaloq bajarilishi uchun aloqa qiling.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>💰 Narxlar qancha?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Narxlar loyija turining murakkabligiga qarab farq qiladi. Buyurtma formasida batafsil ma'lumot berilganidan so'ng, sizga aniq narxni ko'rsataman. Ikkita loyiha bir xil bo'lsa-da, biz individual yondashuv qilamiz.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>📤 Tahrir/revision qancha?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Har bir paket'ga 2-3 ta free revision kiradi. Ular dan ko'p revision uchun qo'shimcha narxta sabab bo'ladi.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>🎥 Format va resolution?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Barcha formatlar dastajlar mumkin: 1080p, 4K, mobile, YouTube, Instagram, TikTok va boshqalar. Sizning ehtiyojlari bo'yicha customize qilamiz.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>🔄 Iltimos, custom packages?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Albatta! Sizning specific ehtiyojlarini aytib bering va biz custom paket tayyorlab bergan. Loyihangizga nisbatan optimallashtirgan narx qo'yiladi.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>💳 To'lov qanday bo'ladi?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>To'lov variant'lar: Click, Payme, Yandex.Kassa, Telegram Bot va to'lovlardan turib. Buyurtmani qabul qilganda 50% oldini, tugatganda qolganini to'lov qiling.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="aloqa">
+        <h2>Loyihani Boshlaymiz!</h2>
+        <p>Sizning ideani real materyalga aylantirish uchun hozir buyurtma berishga tayyor bo'lgan bo'lsangiz - men sizni kutib olayapman</p>
+        <div class="contact-buttons">
+            <a href="https://t.me/qaxxarov_98" target="_blank" class="contact-btn">✈️ Telegram (@qaxxarov_98)</a>
+            <a href="https://www.instagram.com/qaxxarov_98" target="_blank" class="contact-btn">📸 Instagram</a>
+            <a href="https://www.instagram.com/agro_uruglar_" target="_blank" class="contact-btn">🌾 Agro Uruglar</a>
+            <button class="contact-btn" onclick="openContact()">📧 Buyurtma Formasi</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 Qaxxarov Portfolio - AI Creator. Barcha huquqlar qoʻlga olindi.</p>
+        <div class="social-links">
+            <a href="https://t.me/qaxxarov_98">Telegram</a> | 
+            <a href="https://www.instagram.com/qaxxarov_98">Instagram</a> |
+            <a href="https://www.instagram.com/agro_uruglar_">Agro Uruglar</a> |
+            <a href="mailto:tursunmurodqaxxarov@gmail.com">Email</a>
+        </div>
+    </footer>
+
+    <!-- CONTACT FORM MODAL -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('contactModal')">✕</button>
+            <h2 style="margin-bottom: 2rem; color: var(--text);">Buyurtma Formasi</h2>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label>To'liq Ismingiz</label>
+                    <input type="text" id="contactName" placeholder="Ismingizni kiriting">
+                </div>
+                <div class="form-group">
+                    <label>Telegram/Telefon</label>
+                    <input type="text" id="contactPhone" placeholder="@username yoki +998...">
+                </div>
+                <div class="form-group">
+                    <label>Email Manzilingiz</label>
+                    <input type="email" id="contactEmail" placeholder="sizning@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Xizmat Turi</label>
+                    <select id="contactService" style="width: 100%; padding: 0.8rem; border: 2px solid var(--bg-light); border-radius: 0.5rem;">
+                        <option>-- Xizmat Tanlang --</option>
+                        <option>AI Avatar Video</option>
+                        <option>Reklama Videosi</option>
+                        <option>Intro & Outro</option>
+                        <option>Foto Tayyorlash</option>
+                        <option>Video Tahrirlash</option>
+                        <option>Dizayn & Motion</option>
+                        <option>Custom Package</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Loyihaning Tavsifi</label>
+                    <textarea id="contactMessage" placeholder="Nima uchun kontent kerakligini va qanday bo'lishini yozing..." style="min-height: 120px; resize: vertical;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>⏰ Deadline (Vaqti kerakmi?)</label>
+                    <input type="text" id="contactDeadline" placeholder="Misol: 1 hafta, 3 kun, 1 oy">
+                </div>
+                <div class="form-group">
+                    <label>💰 Budget ($)</label>
+                    <input type="text" id="contactBudget" placeholder="Misol: $200, $500, Kelishiladi">
+                </div>
+                <div class="form-group">
+                    <label>🎨 Reference (Ideya rasmlari/Linklar)</label>
+                    <textarea id="contactReference" placeholder="Ideya rasmlari, YouTube linklar yoki boshqa reference'lar..." style="min-height: 80px; resize: vertical;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>📝 Qo'shimcha Tafsif</label>
+                    <textarea id="contactExtra" placeholder="Yana biror narsani qo'shish kerakmi?" style="min-height: 80px; resize: vertical;"></textarea>
+                </div>
+                <button class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem;" onclick="handleContactSubmit()">Buyurtmani Telegram'ga Jo'natish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO DETAIL MODAL -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('videoModal')">✕</button>
+            <div id="videoDetail">
+                <!-- Video details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let videosData = JSON.parse(localStorage.getItem('videos')) || [];
+        let ordersData = JSON.parse(localStorage.getItem('orders')) || [];
+        let customersData = JSON.parse(localStorage.getItem('customers')) || [];
+        let currentFilter = 'all';
+
+        const BOT_TOKEN = '8791059822:AAGoGnc5Uy2l6RXL65yEff-hf6zqLtygJMI';
+        const CHAT_ID = '-1002497393446';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVideos();
+            updateStats();
+        });
+
+        // RENDER VIDEOS
+        function renderVideos() {
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+
+            const filtered = currentFilter === 'all' 
+                ? videosData 
+                : videosData.filter(v => v.category === currentFilter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light);">Hozircha videolar yo\'q. Admin panel'da qo\'shish boshlang!</p>';
+                return;
+            }
+
+            filtered.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        ${video.link ? `<iframe style="width:100%;height:100%;border:none;" src="${video.link}" allowfullscreen></iframe>` : '<div style="width:100%;height:100%;background:linear-gradient(135deg, #16a34a, #ea580c);display:flex;align-items:center;justify-content:center;color:white;font-size:3rem;">🎬</div>'}
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-desc">${video.desc}</div>
+                        <div class="video-tags">
+                            ${video.tags.split('#').filter(t => t).map(tag => `<span class="tag">#${tag.trim()}</span>`).join('')}
+                        </div>
+                        <div class="video-stats">
+                            <span>👁 Ko'rishlar</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // FILTER VIDEOS
+        function filterVideos(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderVideos();
+        }
+
+        // ADD VIDEO
+        function addVideo() {
+            const title = document.getElementById('videoTitle').value;
+            const desc = document.getElementById('videoDesc').value;
+            const link = document.getElementById('videoLink').value;
+            const tags = document.getElementById('videoTags').value;
+            const category = document.getElementById('videoCategory').value;
+
+            if (!title || !desc || category === '-- Kategoriya --') {
+                alert('Barcha maydonlarni to\'ldiring!');
+                return;
+            }
+
+            const newVideo = {
+                id: Date.now(),
+                title,
+                desc,
+                link,
+                tags,
+                category
+            };
+
+            videosData.push(newVideo);
+            localStorage.setItem('videos', JSON.stringify(videosData));
+
+            // Clear inputs
+            document.getElementById('videoTitle').value = '';
+            document.getElementById('videoDesc').value = '';
+            document.getElementById('videoLink').value = '';
+            document.getElementById('videoTags').value = '';
+            document.getElementById('videoCategory').value = '-- Kategoriya --';
+
+            renderVideos();
+            updateStats();
+            alert('Video qo\'shildi! ✅');
+        }
+
+        // CONTACT SUBMIT
+        function handleContactSubmit() {
+            const name = document.getElementById('contactName').value;
+            const phone = document.getElementById('contactPhone').value;
+            const email = document.getElementById('contactEmail').value;
+            const service = document.getElementById('contactService').value;
+            const message = document.getElementById('contactMessage').value;
+            const deadline = document.getElementById('contactDeadline').value;
+            const budget = document.getElementById('contactBudget').value;
+            const reference = document.getElementById('contactReference').value;
+            const extra = document.getElementById('contactExtra').value;
+
+            if (!name || !phone || service === '-- Xizmat Tanlang --' || !message) {
+                alert('Barcha asosiy maydonlarni to\'ldiring!');
+                return;
+            }
+
+            // Save to database
+            const order = {
+                id: Date.now(),
+                name,
+                phone,
+                email,
+                service,
+                message,
+                deadline,
+                budget,
+                reference,
+                extra,
+                date: new Date().toLocaleDateString('uz-UZ')
+            };
+
+            ordersData.push(order);
+            localStorage.setItem('orders', JSON.stringify(ordersData));
+
+            // Add to customers
+            if (!customersData.find(c => c.phone === phone)) {
+                customersData.push({ name, phone, email, date: new Date().toLocaleDateString('uz-UZ') });
+                localStorage.setItem('customers', JSON.stringify(customersData));
+            }
+
+            // Send to Telegram
+            const telegramMessage = `
+🎬 YANGI BUYURTMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Ism: ${name}
+📞 Telefon: ${phone}
+📧 Email: ${email}
+🎯 Xizmat: ${service}
+⏰ Deadline: ${deadline || 'Aytilmagan'}
+💰 Budget: ${budget || 'Aytilmagan'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📝 Loyihaning Tafsifi:
+${message}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 Reference:
+${reference || 'Aytilmagan'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 Qo'shimcha Tafsif:
+${extra || 'Aytilmagan'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 ${new Date().toLocaleString('uz-UZ')}
+`;
+
+            sendTelegramMessage(telegramMessage);
+
+            updateStats();
+            closeModal('contactModal');
+            
+            // Clear form
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactPhone').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactService').value = '-- Xizmat Tanlang --';
+            document.getElementById('contactMessage').value = '';
+            document.getElementById('contactDeadline').value = '';
+            document.getElementById('contactBudget').value = '';
+            document.getElementById('contactReference').value = '';
+            document.getElementById('contactExtra').value = '';
+
+            alert('Buyurtma yuborildi! Sizga Telegram orqali javob beraman. ✅');
+        }
+
+        // SEND TO TELEGRAM
+        function sendTelegramMessage(text) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: text,
+                    parse_mode: 'HTML'
+                })
+            }).catch(err => console.log('Telegram:', err));
+        }
+
+        // UPDATE STATS
+        function updateStats() {
+            const totalViews = videosData.length * 10 + ordersData.length * 5;
+            const totalOrders = ordersData.length;
+            const totalCustomers = customersData.length;
+            const satisfaction = document.getElementById('satisfactionInput')?.value || 98;
+
+            document.getElementById('statViews').textContent = totalViews;
+            document.getElementById('statOrders').textContent = totalOrders;
+            document.getElementById('statCustomers').textContent = totalCustomers;
+            
+            document.getElementById('heroViews').textContent = totalViews;
+            document.getElementById('heroOrders').textContent = totalOrders;
+            document.getElementById('heroCustomers').textContent = totalCustomers;
+            
+            document.getElementById('aboutSatisfaction').textContent = satisfaction + '%';
+
+            // Update orders display
+            const ordersContainer = document.getElementById('ordersContainer');
+            if (ordersData.length === 0) {
+                ordersContainer.innerHTML = '<p style="color: var(--text-light);">Zakazlar shunga keladi...</p>';
+            } else {
+                ordersContainer.innerHTML = ordersData.slice(-10).reverse().map(order => `
+                    <div class="order-item">
+                        <div class="order-title">${order.name}</div>
+                        <div class="order-detail">Xizmat: ${order.service}</div>
+                        <div class="order-detail">Sana: ${order.date}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Update customers display
+            const customersContainer = document.getElementById('customersContainer');
+            if (customersData.length === 0) {
+                customersContainer.innerHTML = '<p style="color: var(--text-light);">Mijozlar shunga saqlash...</p>';
+            } else {
+                customersContainer.innerHTML = customersData.slice(-10).reverse().map(customer => `
+                    <div class="order-item">
+                        <div class="order-title">${customer.name}</div>
+                        <div class="order-detail">${customer.phone}</div>
+                        <div class="order-detail">${customer.email}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // TOGGLE ADMIN
+        function toggleAdmin() {
+            document.getElementById('adminPanel').classList.toggle('active');
+        }
+
+        // FAQ TOGGLE
+        function toggleFaq(element) {
+            element.nextElementSibling.classList.toggle('active');
+            element.querySelector('.faq-toggle').textContent = element.nextElementSibling.classList.contains('active') ? '−' : '+';
+        }
+
+        // MODALS
+        function openContact() {
+            console.log('openContact() called!');
+            const modal = document.getElementById('contactModal');
+            console.log('Modal element:', modal);
+            if (modal) {
+                modal.classList.add('active');
+                console.log('Modal active class added!');
+            } else {
+                console.error('Modal element not found!');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function scrollTo(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // EXPORT DATA
+        function exportData() {
+            const data = {
+                videos: videosData,
+                orders: ordersData,
+                customers: customersData
+            };
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'portfolio_data.json';
+            a.click();
+        }
+
+        // CLEAR DATA
+        function clearAllData() {
+            if (confirm('Haqiqatan ham barcha datani o\'chirasizmi?')) {
+                videosData = [];
+                ordersData = [];
+                customersData = [];
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // Close modal outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
